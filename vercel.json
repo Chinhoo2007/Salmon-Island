@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "routes": [
+      {
+        "src": "/(.*)",
+        "headers": {
+          "Content-Disposition": "inline; filename=\"safe-default.txt\""
+        }
+      }
+    ]
+  }
+  

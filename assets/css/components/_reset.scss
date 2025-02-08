@@ -1,0 +1,55 @@
+body {
+  font-family: var(--serif-font-family);
+  -webkit-font-smoothing: antialiased;
+  margin: 0 20px;
+  color: var(--text-color);
+  position: relative;
+  /* background */
+  background-image: linear-gradient(to bottom, var(--block-background-color), transparent);
+  background-size: 100% 5rem;
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-color: var(--background-color);
+}
+
+article {
+  max-width: var(--page-width);
+  margin: 0 auto
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+  text-underline-offset: 0.25rem;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-family: var(--serif-font-family);
+    cursor: pointer
+}
+
+.button {
+    display: block;
+    background-color: var(--block-background-color);
+    width: 100%;
+    padding: .5rem;
+    font-size: 1rem;
+    text-align: center;
+    box-sizing: border-box;
+    @include bordered;
+
+    &a {
+        text-decoration: none;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

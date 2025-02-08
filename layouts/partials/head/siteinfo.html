@@ -1,0 +1,66 @@
+<!-- Basic site information -->
+{{- if .IsHome -}}
+<title>{{ .Site.Title }}</title>
+<meta property="og:title" content="{{ .Site.Title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="{{ .Site.Params.description }}" />
+<meta name="description" content="{{ .Site.Params.description }}" />
+{{- else -}}
+<title>{{ .Title }}</title>
+<meta property="og:title" content="{{ .Title }}" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="{{ default .Summary .Description | plainify }}" />
+<meta name="description" content="{{ default .Summary .Description | plainify }}" />
+{{- end }}
+<meta property="og:locale" content="{{ .Site.LanguageCode }}" />
+{{- if .Params.album -}}
+<meta property="og:image" content="{{ .Params.album }}" />
+{{- else -}}
+<meta property="og:image" content="{{ .Site.Params.favicon }}" />
+{{ end }}
+
+<!-- Favicon -->
+{{- if .Site.Params.favicon -}}
+<link rel="apple-touch-icon" href="{{ .Site.Params.favicon }}" />
+<link rel="icon" href="{{ .Site.Params.favicon }}" />
+<link rel="shortcut" href="{{ .Site.Params.favicon }}" />
+{{- end -}}
+
+<!-- RSS -->
+<link rel="alternate" type="application/atom+xml" href="{{.Site.BaseURL}}index.xml" title="{{ .Site.Title }}">
+<link href="{{ .Site.Params.staticPrefix }}{{ "index.xml" | relURL }}" rel="alternate" type="application/rss+xml"
+    title="{{ .Site.Title }}">
+
+<!-- Twtter Card -->
+{{ if .Site.Params.TwitterCards }}{{ template "_internal/twitter_cards.html" . }}{{ end }}
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ .Site.BaseURL }}"
+        },
+        "articleSection" : "{{ .Section }}",
+        "name" : "{{ .Title }}",
+        "headline" : "{{ .Title }}",
+        {{ if .IsHome -}}
+        "description" : "{{ .Site.Params.description | plainify }}",
+        {{- else -}}
+        "description" : "{{ default .Summary .Description | plainify }}",
+        {{- end }}
+        "inLanguage" : "zh-CN",
+        "author" : "{{ .Site.Author.name }}",
+        "creator" : "{{ .Site.Author.name }}",
+        "publisher": "{{ .Site.Author.name }}",
+        "accountablePerson" : "{{ .Site.Author.name }}",
+        "copyrightHolder" : "{{ .Site.Author.name }}",
+        "copyrightYear" : "{{ .Date.Format "2006" }}",
+        "datePublished": "{{ .Date }}",
+        "dateModified" : "{{ .Date }}",
+        "url" : "{{ .Permalink }}",
+        "keywords" : [ {{ if isset .Params "tags" }}{{ range .Params.tags }}"{{ . }}",{{ end }}{{ end }} ]
+    }
+</script>
